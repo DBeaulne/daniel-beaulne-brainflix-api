@@ -1,5 +1,5 @@
-import express from "express";
-import cors from "cors";
+const express = require("express");
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || process.argv[2] || 8080;
 const BACKEND_URL = process.env.BACKEND_URL || "http://localhost";

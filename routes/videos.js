@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
 const videos = require("../data/videos.json");
-const videoThumbnail = require("../public/images");
 
 router.get("/videos", (req, res) => {
 	// put api code in here
