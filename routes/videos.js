@@ -13,20 +13,19 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res, next) => {
+	// fetch and return the video object that containes the video id parameter passed in
 	const videoId = req.params.id;
-	const isVideoId = (video) => {
-		return video.id === videoId;
-	};
-
-	let video = videos.find(({ id }) => id === videoId);
-	res.json(video);
-
-	// const videoId = req.body.id
-	// add response data here
-	// response data needs to be video details of the video matching the :id
+	res.json(videoId);
 });
 
 router.post("/", (req, res) => {
+	const { title, description, video } = req.body;
+	const newVideo = {
+		id: uuidv4(),
+		title,
+		description,
+		video
+	};
 	// accept the uploaded video and add it to the video list with a created id
 });
 
