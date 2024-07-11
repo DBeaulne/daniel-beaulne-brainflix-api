@@ -26,6 +26,8 @@ router.post("/", (req, res) => {
 		description,
 		video
 	};
+	videos.push(newVideo);
+	res.json(newVideo);
 	// accept the uploaded video and add it to the video list with a created id
 });
 
