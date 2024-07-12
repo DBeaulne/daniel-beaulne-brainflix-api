@@ -1,9 +1,9 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { v4: uuidv4 } = require("uuid");
-const videos = require("../data/videos.json");
+const { v4: uuidv4 } = require('uuid');
+const videos = require('../data/videos.json');
 
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
 	// fetch the entire video list
 	// .map() method creates a new array of objects with only the four required key: value pairs
 	let videoList = videos.map((list) => {
@@ -12,13 +12,16 @@ router.get("/", (req, res) => {
 	res.json(videoList);
 });
 
-router.get("/:id", (req, res, next) => {
+router.get('/:id', (req, res, next) => {
 	// fetch and return the video object that containes the video id parameter passed in
 	const videoId = req.params.id;
-	res.json(videoId);
+	const videoDetailById = videos.find((obj) => obj.id === videoId);
+	console.log(videoDetailById);
+
+	res.json(videoDetailById);
 });
 
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
 	const { title, description, video } = req.body;
 	const newVideo = {
 		id: uuidv4(),
