@@ -16,8 +16,6 @@ router.get('/:id', (req, res, next) => {
 	// fetch and return the video object that containes the video id parameter passed in
 	const videoId = req.params.id;
 	const videoDetailById = videos.find((obj) => obj.id === videoId);
-	console.log(videoDetailById);
-
 	res.json(videoDetailById);
 });
 

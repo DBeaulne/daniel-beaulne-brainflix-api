@@ -8,7 +8,7 @@ const path = require('path');
 
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:3000' }));
-app.use(express.static('/public/images'));
+app.use(express.static('public'));
 
 app.use('/videos', videoRoutes);
 
