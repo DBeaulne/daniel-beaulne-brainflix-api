@@ -21,6 +21,9 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.post('/', (req, res) => {
+	// post uploaded video
+	// placeholder data
+	// - Begin
 	const channel = 'Daniel Beaulne';
 	const views = '183,923';
 	const likes = '132,422';
@@ -36,6 +39,10 @@ router.post('/', (req, res) => {
 			timestamp: Date.now()
 		}
 	];
+	// -- end of placeholder data
+
+	// deconstruct the req.body into the title, image, & description so we can use them to construct the newVideo
+	// with the placeholder data.
 	const { title, image, description } = req.body;
 	const newVideo = {
 		id: uuidv4(),
@@ -50,8 +57,9 @@ router.post('/', (req, res) => {
 		timestamp,
 		comments
 	};
-	console.log(newVideo);
 	videos.push(newVideo);
+
+	// use fs to write the uploaded video to the json file for persistence
 	fs.writeFile('./data/videos.json', JSON.stringify(videos), (err) => {
 		// checking for errors
 		if (err) throw err;
@@ -59,7 +67,6 @@ router.post('/', (req, res) => {
 		console.log('Done writing');
 	});
 	res.json(newVideo);
-	// accept the uploaded video and add it to the video list with a created id
 });
 
 module.exports = router;

@@ -5,6 +5,7 @@
 ## Develop branch
 
 - create "develop" branch
+- 07-13-2024: add comments to /routes/videos.js
 
 ## feature/create-api-endpoints branch
 
@@ -17,6 +18,3 @@
 - create and debug api endpoint for post /video
 - test with Postman
 - fill the rest of the video object with placeholder data so that uploaded videos maintain the required object structure and key: value pairs.
-- next up, Diving Deeper!
-
-## Diving deeper branch
