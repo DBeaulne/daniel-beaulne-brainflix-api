@@ -6,6 +6,7 @@
 
 - create "develop" branch
 - 07-13-2024: add comments to /routes/videos.js
+- inadvertently added features on develop branch
 
 ## feature/create-api-endpoints branch
 

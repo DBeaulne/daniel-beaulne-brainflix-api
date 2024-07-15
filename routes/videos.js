@@ -4,6 +4,16 @@ const { v4: uuidv4 } = require('uuid');
 const videos = require('../data/videos.json');
 const fs = require('fs');
 
+const writeToFile = () => {
+	// use fs to write changes to the json file for persistence
+	fs.writeFile('./data/videos.json', JSON.stringify(videos), (err) => {
+		// checking for errors
+		if (err) throw err;
+		// success!
+		console.log('Done writing');
+	});
+};
+
 router.get('/', (req, res) => {
 	// fetch the entire video list
 	// .map() method creates a new array of objects with only the four required key: value pairs
@@ -59,14 +69,57 @@ router.post('/', (req, res) => {
 	};
 	videos.push(newVideo);
 
-	// use fs to write the uploaded video to the json file for persistence
-	fs.writeFile('./data/videos.json', JSON.stringify(videos), (err) => {
-		// checking for errors
-		if (err) throw err;
-		// success!
-		console.log('Done writing');
-	});
+	// write the changes to the json file
+	writeToFile();
 	res.json(newVideo);
+});
+
+router.post('/:id/comments', (req, res, next) => {
+	const videoId = req.params.id;
+	const { comment, name } = req.body;
+
+	// search for the video by the params 'id'
+	const videoDetailById = videos.find((obj) => obj.id === videoId);
+
+	// build the new comment
+	const newComment = {
+		id: uuidv4(),
+		name: name,
+		comment: comment,
+		likes: 0,
+		timestamp: Date.now()
+	};
+
+	//push the new comment to the comment array of the video
+	videoDetailById.comments.push(newComment);
+
+	// write the changes to the json file
+	writeToFile();
+	res.json(newComment);
+});
+
+router.delete('/:videoId/comments/:commentId', (req, res, next) => {
+	const videoId = req.params.videoId;
+	const commentId = req.params.commentId;
+
+	// get the comments array from the video based on id param
+	const videoCommentsById = videos.find((video) => video.id === videoId).comments;
+
+	// use the commentId to find the comment to delete
+	let targetId = commentId;
+	const index = videoCommentsById.findIndex((element) => element.id === targetId);
+
+	// store the comment to be deleted in order to send it as the response
+	let commentToBeDeleted = videoCommentsById[index];
+
+	// delete the comment based on it's index number using the splice array method
+	if (index !== -1) {
+		videoCommentsById.splice(index, 1);
+	}
+
+	// write the changes to the json file
+	writeToFile();
+	res.json(commentToBeDeleted);
 });
 
 module.exports = router;

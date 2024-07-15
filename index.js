@@ -1,3 +1,5 @@
+/* Index.js file */
+// initial setup consts
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -10,6 +12,7 @@ app.use(express.json());
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.static('public'));
 
+// route to point api calls to videos.js
 app.use('/videos', videoRoutes);
 
 // app listening on port set in .env
